@@ -1,3 +1,5 @@
+import profileImg from "../assets/me.jpeg";
+
 function About() {
   return (
     <section id="about" className="about">
@@ -6,7 +8,7 @@ function About() {
 
         <div className="about-left">
           <img
-            src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e"
+            src={profileImg}
             alt="profile"
           />
         </div>
@@ -16,9 +18,10 @@ function About() {
           <h2>About Me</h2>
 
           <p>
-            I am a Software Engineering undergraduate at NSBM
-            and a passionate graphic designer who enjoys building
-            modern web applications and creative digital experiences.
+            I am a Software Engineering undergraduate at NSBM Green University
+            currently in my 2nd Year, 2nd Semester.
+            I am a passionate graphic designer who enjoys building modern web
+            applications and creative digital experiences.
           </p>
 
           <p>
@@ -31,6 +34,7 @@ function About() {
             <div>
               <h3>Education</h3>
               <p>NSBM Green University</p>
+              <p>2nd Year, 2nd Semester</p>
             </div>
 
             <div>
@@ -48,4 +52,4 @@ function About() {
   )
 }
 
-export default About
+export default About;
