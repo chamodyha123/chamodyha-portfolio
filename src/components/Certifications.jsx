@@ -1,43 +1,89 @@
+import figmate from "../assets/figmate.jpg"
+import pyleague from "../assets/pyleague.jpg"
+import techneeDesign from "../assets/technee-design.jpg"
+import navodayaIT from "../assets/navodaya-it.jpg"
+
 function Certifications() {
 
   const certificates = [
 
     {
-      title: "Graphic Design Certification",
-      organization: "Add Institute Name"
+      id: "01",
+      title: "FigMate UI/UX Workshop 2025",
+      organization:
+        "Association of Computer & Data Science - NSBM",
+      image: figmate
     },
 
     {
-      title: "Web Development Certification",
-      organization: "Add Institute Name"
+      id: "02",
+      title: "Pyleague '25 Python Coding Challenge",
+      organization:
+        "Hands-On Python Coding Challenge",
+      image: pyleague
     },
 
     {
-      title: "UI/UX Design Certification",
-      organization: "Add Institute Name"
+      id: "03",
+      title:
+        "Adobe Photoshop & Illustrator Design Course",
+      organization:
+        "TECHNEE Graphic Designing",
+      image: techneeDesign
     },
 
     {
-      title: "Database Management Systems",
-      organization: "Add Institute Name"
+      id: "04",
+      title:
+        "Certificate in IT (Graphic Designing)",
+      organization:
+        "TECHNEE - Navodaya Higher Education Institute",
+      image: navodayaIT
     }
 
   ]
 
   return (
-    <section id="certifications" className="certifications">
 
-      <h2>Certifications</h2>
+    <section
+      id="certifications"
+      className="certifications"
+    >
+
+      <h2>My Certifications</h2>
 
       <div className="certifications-container">
 
-        {certificates.map((certificate, index) => (
+        {certificates.map((certificate) => (
 
-          <div className="certificate-card" key={index}>
+          <div
+            className="certificate-card"
+            key={certificate.id}
+          >
 
-            <h3>{certificate.title}</h3>
+            <div className="certificate-image-wrapper">
 
-            <p>{certificate.organization}</p>
+              <img
+                src={certificate.image}
+                alt={certificate.title}
+                className="certificate-img"
+              />
+
+              <div className="certificate-overlay">
+
+               
+
+              </div>
+
+            </div>
+
+            <div className="certificate-content">
+
+              <h3>{certificate.title}</h3>
+
+              <p>{certificate.organization}</p>
+
+            </div>
 
           </div>
 
@@ -46,6 +92,7 @@ function Certifications() {
       </div>
 
     </section>
+
   )
 }
 

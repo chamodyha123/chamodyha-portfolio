@@ -50,7 +50,9 @@ function Education() {
 
         <div className="education-card">
 
-          <h3>G.C.E Advanced Level Examination 2022</h3>
+             <h3>R/Eheliyagoda Central College</h3>
+
+          <h4>G.C.E Advanced Level Examination 2022</h4>
 
           <p>
             Mathematics Stream with Combined Mathematics,
