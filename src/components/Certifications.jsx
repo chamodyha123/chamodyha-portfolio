@@ -2,8 +2,9 @@ import figmate from "../assets/figmate.jpg"
 import pyleague from "../assets/pyleague.jpg"
 import techneeDesign from "../assets/technee-design.jpg"
 import navodayaIT from "../assets/navodaya-it.jpg"
-// 1. Added the new import statement for your Python certificate image
 import pythonBeginners from "../assets/python.jpg" 
+// 1. Added import for the new Web Design certificate image
+import webDesignBeginners from "../assets/web-design.jpg" 
 
 function Certifications() {
 
@@ -32,12 +33,18 @@ function Certifications() {
       organization: "TECHNEE - Navodaya Higher Education Institute",
       image: navodayaIT
     },
-    // 2. Added your new certificate details here
     {
       id: "05",
       title: "Online Learning Programme in Python for Beginners",
       organization: "Department of Computer Science & Engineering, University of Moratuwa",
       image: pythonBeginners
+    },
+    // 2. Added your new Web Design certificate details here
+    {
+      id: "06",
+      title: "Online Learning Programme in Web Design for Beginners",
+      organization: "Department of Information Technology, University of Moratuwa",
+      image: webDesignBeginners
     }
   ]
 
