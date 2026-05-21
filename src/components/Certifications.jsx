@@ -2,7 +2,7 @@ import figmate from "../assets/figmate.jpg"
 import pyleague from "../assets/pyleague.jpg"
 import techneeDesign from "../assets/technee-design.jpg"
 import navodayaIT from "../assets/navodaya-it.jpg"
-import pythonBeginners from "../assets/python.jpg" 
+import pythonBeginners from "../assets/Python.jpg" 
 // 1. Added import for the new Web Design certificate image
 import webDesignBeginners from "../assets/web-design.jpg" 
 
