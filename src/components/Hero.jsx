@@ -66,7 +66,7 @@ function Hero() {
               Developer by Logic
             </span>
 
-            <br />
+        
 
             <span className="white-text">
               Designer by Passion
