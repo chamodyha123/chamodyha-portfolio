@@ -1,11 +1,13 @@
 function Hero() {
 
   const scrollToProjects = () => {
+
     const section = document.getElementById("projects")
 
     section.scrollIntoView({
       behavior: "smooth"
     })
+
   }
 
   return (
@@ -59,15 +61,24 @@ function Hero() {
         <div className="tagline-box">
 
           <h3>
-            Designing Experiences.
+
+            <span className="blue-text">
+              Developer by Logic
+            </span>
+
             <br />
-            Engineering Solutions.
+
+            <span className="white-text">
+              Designer by Passion
+            </span>
+
           </h3>
 
           <p>
             Blending Software Engineering
             with Creative Graphic Design
-            to build modern digital experiences.
+            to create modern, user-focused,
+            and innovative digital experiences.
           </p>
 
         </div>
