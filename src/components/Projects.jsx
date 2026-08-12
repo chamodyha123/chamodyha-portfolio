@@ -243,35 +243,34 @@ function Projects() {
       type: "Personal",
     },
 
+{
+  title: "NexaERP",
 
-    {
-      title: "NexaERP",
+  description:
+    "A modern enterprise resource planning platform developed collaboratively to manage business operations, resources, users, and organizational processes through a centralized digital system.",
 
-      description:
-        "A modern enterprise resource planning platform developed collaboratively to manage business operations, resources, users, and organizational processes through a centralized digital system.",
+  images: [
+    nexaerp1,
+    nexaerp2,
+    nexaerp3,
+  ],
 
-      images: [
-        nexaerp1,
-        nexaerp2,
-        nexaerp3,
-      ],
+  tech: [
+    "React",
+    "Spring Boot",
+    "Java",
+    "PostgreSQL",
+    "JWT",
+  ],
 
-      tech: [
-        "React",
-        "ASP.NET",
-        "C#",
-        "SQL Server",
-        "JWT",
-      ],
+  github:
+    "https://github.com/chamodyha123/Erp_frontend.git",
 
-      github:
-        "https://github.com/chamodyha123/Erp_frontend.git",
+  live:
+    "https://nexaerp-frontend.vercel.app/",
 
-      live:
-        "https://nexaerp-frontend.vercel.app/",
-
-      type: "Collaborative",
-    },
+  type: "Collaborative",
+},
 
 
     {
