@@ -760,4 +760,169 @@ body {
   .skills-container {
     grid-template-columns: 1fr;
   }
+  .project-image-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.project-img {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+  display: block;
+}
+
+.image-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+  width: 38px;
+  height: 38px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: rgba(0, 0, 0, 0.65);
+  color: white;
+
+  font-size: 28px;
+  line-height: 1;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: 0.3s ease;
+}
+
+.image-nav:hover {
+  background: rgba(0, 0, 0, 0.9);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.image-nav.prev {
+  left: 12px;
+}
+
+.image-nav.next {
+  right: 12px;
+}
+
+.image-dots {
+  position: absolute;
+
+  bottom: 12px;
+  left: 50%;
+
+  transform: translateX(-50%);
+
+  display: flex;
+  gap: 7px;
+}
+
+.image-dots button {
+  width: 8px;
+  height: 8px;
+
+  padding: 0;
+
+  border: none;
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.55);
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+}
+
+.image-dots button.active {
+  width: 22px;
+  border-radius: 10px;
+  background: white;
+}
+
+.project-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.project-type {
+  padding: 5px 10px;
+  border-radius: 20px;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  white-space: nowrap;
+}
+
+.project-type.personal {
+  background: rgba(0, 200, 255, 0.12);
+  color: #00c8ff;
+}
+
+.project-type.collaborative {
+  background: rgba(168, 85, 247, 0.12);
+  color: #a855f7;
+}
+
+.project-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.project-btn {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 9px 16px;
+
+  border-radius: 8px;
+
+  text-decoration: none;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  transition: 0.3s ease;
+}
+
+.live-btn {
+  background: #00c8ff;
+  color: #000;
+}
+
+.live-btn:hover {
+  transform: translateY(-2px);
+}
+
+.github-btn {
+  background: transparent;
+
+  border: 1px solid rgba(255, 255, 255, 0.25);
+
+  color: inherit;
+}
+
+.github-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+}
+
+.projects-subtitle {
+  text-align: center;
+  max-width: 650px;
+  margin: 0 auto 40px;
+  opacity: 0.7;
+}
 }
