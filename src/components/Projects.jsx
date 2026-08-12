@@ -28,6 +28,7 @@ import library3 from "../assets/projects/library/3.png"
 
 function ProjectCard({ project }) {
   const [currentImage, setCurrentImage] = useState(0)
+  const hasMultipleImages = project.images.length > 1
 
   const nextImage = () => {
     setCurrentImage((prev) => (prev + 1) % project.images.length)
@@ -51,32 +52,36 @@ function ProjectCard({ project }) {
           className="project-img"
         />
 
-        <button
-          className="image-nav prev"
-          onClick={previousImage}
-          aria-label="Previous image"
-        >
-          ‹
-        </button>
-
-        <button
-          className="image-nav next"
-          onClick={nextImage}
-          aria-label="Next image"
-        >
-          ›
-        </button>
-
-        <div className="image-dots">
-          {project.images.map((_, index) => (
+        {hasMultipleImages && (
+          <>
             <button
-              key={index}
-              className={index === currentImage ? "active" : ""}
-              onClick={() => setCurrentImage(index)}
-              aria-label={`View image ${index + 1}`}
-            />
-          ))}
-        </div>
+              className="image-nav prev"
+              onClick={previousImage}
+              aria-label="Previous image"
+            >
+              ‹
+            </button>
+
+            <button
+              className="image-nav next"
+              onClick={nextImage}
+              aria-label="Next image"
+            >
+              ›
+            </button>
+
+            <div className="image-dots">
+              {project.images.map((_, index) => (
+                <button
+                  key={index}
+                  className={index === currentImage ? "active" : ""}
+                  onClick={() => setCurrentImage(index)}
+                  aria-label={`View image ${index + 1}`}
+                />
+              ))}
+            </div>
+          </>
+        )}
 
       </div>
 
