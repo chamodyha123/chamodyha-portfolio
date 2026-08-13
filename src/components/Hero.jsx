@@ -4,9 +4,11 @@ function Hero() {
 
     const section = document.getElementById("projects")
 
-    section.scrollIntoView({
-      behavior: "smooth"
-    })
+    if (section) {
+      section.scrollIntoView({
+        behavior: "smooth"
+      })
+    }
 
   }
 
@@ -42,12 +44,11 @@ function Hero() {
           </button>
 
           <a
-            href="/cv.pdf"
-            download
+            href="/Chamodyha_Peshan_CV.pdf"
+            download="Chamodyha_Peshan_CV.pdf"
+            className="btn-secondary"
           >
-            <button className="btn-secondary">
-              Download CV
-            </button>
+            Download CV
           </a>
 
         </div>
@@ -65,8 +66,6 @@ function Hero() {
             <span className="blue-text">
               Developer by Logic
             </span>
-
-        
 
             <span className="white-text">
               Designer by Passion
