@@ -3,13 +3,11 @@ import figmate from "../assets/figmate.jpg"
 import pyleague from "../assets/pyleague.jpg"
 import techneeDesign from "../assets/technee-design.jpg"
 import navodayaIT from "../assets/navodaya-it.jpg"
-import pythonBeginners from "../assets/Python.jpg" 
-import webDesignBeginners from "../assets/web-design.jpg" 
-// 1. Added import for the new React certificate image
+import pythonBeginners from "../assets/Python.jpg"
+import webDesignBeginners from "../assets/web-design.jpg"
 import reactSimplelearn from "../assets/reactsimplelearn.jpg"
 
 function Certifications() {
-  // 2. State to track which certificate (if any) is enlarged
   const [selectedCertificate, setSelectedCertificate] = useState(null)
 
   const certificates = [
@@ -49,7 +47,6 @@ function Certifications() {
       organization: "Department of Information Technology, University of Moratuwa",
       image: webDesignBeginners
     },
-    // 3. Added your new ReactJS certificate details here
     {
       id: "07",
       title: "ReactJS for Beginners",
@@ -83,7 +80,6 @@ function Certifications() {
         ))}
       </div>
 
-      {/* 4. Modal for enlarged certificate view */}
       {selectedCertificate && (
         <div
           className="certificate-modal-overlay"
@@ -98,13 +94,24 @@ function Certifications() {
               onClick={() => setSelectedCertificate(null)}
               aria-label="Close"
             >
-              &times;
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M18 6L6 18M6 6l12 12"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                />
+              </svg>
             </button>
             <img
               src={selectedCertificate.image}
               alt={selectedCertificate.title}
               className="certificate-modal-img"
             />
+            <div className="certificate-modal-caption">
+              <h3>{selectedCertificate.title}</h3>
+              <p>{selectedCertificate.organization}</p>
+            </div>
           </div>
         </div>
       )}
