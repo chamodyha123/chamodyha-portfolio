@@ -1,12 +1,16 @@
+import { useState } from "react"
 import figmate from "../assets/figmate.jpg"
 import pyleague from "../assets/pyleague.jpg"
 import techneeDesign from "../assets/technee-design.jpg"
 import navodayaIT from "../assets/navodaya-it.jpg"
 import pythonBeginners from "../assets/Python.jpg" 
-// 1. Added import for the new Web Design certificate image
 import webDesignBeginners from "../assets/web-design.jpg" 
+// 1. Added import for the new React certificate image
+import reactSimplelearn from "../assets/reactsimplelearn.jpg"
 
 function Certifications() {
+  // 2. State to track which certificate (if any) is enlarged
+  const [selectedCertificate, setSelectedCertificate] = useState(null)
 
   const certificates = [
     {
@@ -39,12 +43,18 @@ function Certifications() {
       organization: "Department of Computer Science & Engineering, University of Moratuwa",
       image: pythonBeginners
     },
-    // 2. Added your new Web Design certificate details here
     {
       id: "06",
       title: "Online Learning Programme in Web Design for Beginners",
       organization: "Department of Information Technology, University of Moratuwa",
       image: webDesignBeginners
+    },
+    // 3. Added your new ReactJS certificate details here
+    {
+      id: "07",
+      title: "ReactJS for Beginners",
+      organization: "Simplilearn SkillUP",
+      image: reactSimplelearn
     }
   ]
 
@@ -54,7 +64,10 @@ function Certifications() {
       <div className="certifications-container">
         {certificates.map((certificate) => (
           <div className="certificate-card" key={certificate.id}>
-            <div className="certificate-image-wrapper">
+            <div
+              className="certificate-image-wrapper"
+              onClick={() => setSelectedCertificate(certificate)}
+            >
               <img
                 src={certificate.image}
                 alt={certificate.title}
@@ -69,6 +82,32 @@ function Certifications() {
           </div>
         ))}
       </div>
+
+      {/* 4. Modal for enlarged certificate view */}
+      {selectedCertificate && (
+        <div
+          className="certificate-modal-overlay"
+          onClick={() => setSelectedCertificate(null)}
+        >
+          <div
+            className="certificate-modal-content"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className="certificate-modal-close"
+              onClick={() => setSelectedCertificate(null)}
+              aria-label="Close"
+            >
+              &times;
+            </button>
+            <img
+              src={selectedCertificate.image}
+              alt={selectedCertificate.title}
+              className="certificate-modal-img"
+            />
+          </div>
+        </div>
+      )}
     </section>
   )
 }
