@@ -6,6 +6,7 @@ import navodayaIT from "../assets/navodaya-it.jpg"
 import pythonBeginners from "../assets/Python.jpg"
 import webDesignBeginners from "../assets/web-design.jpg"
 import reactSimplelearn from "../assets/reactsimplelearn.jpg"
+import ibmWebDevelopment from "../assets/IBMwebdevelopment.jpg"
 
 function Certifications() {
   const [selectedCertificate, setSelectedCertificate] = useState(null)
@@ -52,6 +53,12 @@ function Certifications() {
       title: "ReactJS for Beginners",
       organization: "Simplilearn SkillUP",
       image: reactSimplelearn
+    },
+        {
+      id: "08",
+      title: "Web Development Fundamentals",
+      organization: "IBM SkillsBuild",
+      image: ibmWebDevelopment
     }
   ]
 
