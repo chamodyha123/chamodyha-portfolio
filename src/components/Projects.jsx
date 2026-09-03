@@ -1,13 +1,8 @@
 import { useState } from "react"
 
 import sparehub1 from "../assets/projects/sparehub/1.png"
-
-
 import fivesamath1 from "../assets/projects/fivesamath/1.png"
-
-
 import nextstep1 from "../assets/projects/nextstep/1.png"
-
 
 import buseka1 from "../assets/projects/buseka/1.png"
 import buseka2 from "../assets/projects/buseka/2.png"
@@ -25,24 +20,39 @@ import library1 from "../assets/projects/library/1.png"
 import library2 from "../assets/projects/library/2.png"
 import library3 from "../assets/projects/library/3.png"
 
+import nsbm1 from "../assets/projects/nsbmdays/1.jpg"
+import nsbm2 from "../assets/projects/nsbmdays/2.jpg"
+import nsbm3 from "../assets/projects/nsbmdays/3.jpg"
+import nsbm4 from "../assets/projects/nsbmdays/4.jpg"
+
 
 function ProjectCard({ project }) {
+
   const [currentImage, setCurrentImage] = useState(0)
+
   const hasMultipleImages = project.images.length > 1
 
+
   const nextImage = () => {
-    setCurrentImage((prev) => (prev + 1) % project.images.length)
+    setCurrentImage(
+      (prev) => (prev + 1) % project.images.length
+    )
   }
+
 
   const previousImage = () => {
     setCurrentImage(
       (prev) =>
-        (prev - 1 + project.images.length) % project.images.length
+        (prev - 1 + project.images.length) %
+        project.images.length
     )
   }
 
+
   return (
     <div className="project-card">
+
+      {/* PROJECT IMAGE */}
 
       <div className="project-image-wrapper">
 
@@ -51,6 +61,9 @@ function ProjectCard({ project }) {
           alt={`${project.title} screenshot ${currentImage + 1}`}
           className="project-img"
         />
+
+
+        {/* IMAGE NAVIGATION */}
 
         {hasMultipleImages && (
           <>
@@ -62,6 +75,7 @@ function ProjectCard({ project }) {
               ‹
             </button>
 
+
             <button
               className="image-nav next"
               onClick={nextImage}
@@ -70,53 +84,96 @@ function ProjectCard({ project }) {
               ›
             </button>
 
+
+            {/* IMAGE DOTS */}
+
             <div className="image-dots">
+
               {project.images.map((_, index) => (
+
                 <button
                   key={index}
-                  className={index === currentImage ? "active" : ""}
-                  onClick={() => setCurrentImage(index)}
+                  className={
+                    index === currentImage
+                      ? "active"
+                      : ""
+                  }
+                  onClick={() =>
+                    setCurrentImage(index)
+                  }
                   aria-label={`View image ${index + 1}`}
                 />
+
               ))}
+
             </div>
+
           </>
         )}
 
       </div>
 
+
+      {/* PROJECT CONTENT */}
+
       <div className="project-content">
 
         <div className="project-title-row">
-          <h3>{project.title}</h3>
 
-          <span className={`project-type ${project.type.toLowerCase()}`}>
+          <h3>
+            {project.title}
+          </h3>
+
+
+          <span
+            className={`project-type ${project.type.toLowerCase()}`}
+          >
             {project.type}
           </span>
+
         </div>
 
-        <p>{project.description}</p>
+
+        <p>
+          {project.description}
+        </p>
+
+
+        {/* TECHNOLOGIES */}
 
         <div className="tech-stack">
+
           {project.tech.map((tech, index) => (
-            <span key={index}>{tech}</span>
+
+            <span key={index}>
+              {tech}
+            </span>
+
           ))}
+
         </div>
+
+
+        {/* BUTTONS */}
 
         <div className="project-buttons">
 
           {project.live && (
+
             <a
               href={project.live}
               target="_blank"
               rel="noopener noreferrer"
               className="project-btn live-btn"
             >
-              Live Demo
+              {project.liveLabel || "Live Demo"}
             </a>
+
           )}
 
+
           {project.github && (
+
             <a
               href={project.github}
               target="_blank"
@@ -125,11 +182,13 @@ function ProjectCard({ project }) {
             >
               GitHub
             </a>
+
           )}
 
         </div>
 
       </div>
+
     </div>
   )
 }
@@ -147,7 +206,6 @@ function Projects() {
 
       images: [
         sparehub1,
-        
       ],
 
       tech: [
@@ -171,7 +229,6 @@ function Projects() {
 
       images: [
         fivesamath1,
-        
       ],
 
       tech: [
@@ -196,7 +253,6 @@ function Projects() {
 
       images: [
         nextstep1,
-        
       ],
 
       tech: [
@@ -243,34 +299,35 @@ function Projects() {
       type: "Personal",
     },
 
-{
-  title: "NexaERP",
 
-  description:
-    "A modern enterprise resource planning platform developed collaboratively to manage business operations, resources, users, and organizational processes through a centralized digital system.",
+    {
+      title: "NexaERP",
 
-  images: [
-    nexaerp1,
-    nexaerp2,
-    nexaerp3,
-  ],
+      description:
+        "A modern enterprise resource planning platform developed collaboratively to manage business operations, resources, users, and organizational processes through a centralized digital system.",
 
-  tech: [
-    "React",
-    "Spring Boot",
-    "Java",
-    "PostgreSQL",
-    "JWT",
-  ],
+      images: [
+        nexaerp1,
+        nexaerp2,
+        nexaerp3,
+      ],
 
-  github:
-    "https://github.com/chamodyha123/Erp_frontend.git",
+      tech: [
+        "React",
+        "Spring Boot",
+        "Java",
+        "PostgreSQL",
+        "JWT",
+      ],
 
-  live:
-    "https://nexaerp-frontend.vercel.app/",
+      github:
+        "https://github.com/chamodyha123/Erp_frontend.git",
 
-  type: "Collaborative",
-},
+      live:
+        "https://nexaerp-frontend.vercel.app/",
+
+      type: "Collaborative",
+    },
 
 
     {
@@ -325,32 +382,73 @@ function Projects() {
       type: "Personal",
     },
 
+
+    {
+      title: "NSBM Days",
+
+      description:
+        "A UI/UX design for a mobile app that simplifies daily campus life at NSBM Green University, covering onboarding, student ID/E-Card, campus navigation, dining, library search, friend tracking, and account settings.",
+
+      images: [
+        nsbm1,
+        nsbm2,
+        nsbm3,
+        nsbm4,
+      ],
+
+      tech: [
+        "Figma",
+        "UI/UX Design",
+        "Prototyping",
+      ],
+
+      live:
+        "https://www.figma.com/proto/2jPpx0t81FkPxJIXhMVcUJ/NSBMDAYS-UI?node-id=296-32&t=Hz2eiAu2xcEr1AXf-1",
+
+      liveLabel: "View Prototype",
+
+      type: "Design",
+    },
+
   ]
 
 
   return (
-    <section id="projects" className="projects">
 
-      <h2>My Projects</h2>
+    <section
+      id="projects"
+      className="projects"
+    >
+
+      <h2>
+        My Projects
+      </h2>
+
 
       <p className="projects-subtitle">
-        A collection of personal and collaborative software projects
-        developed using modern technologies.
+        A collection of personal and collaborative
+        software projects developed using modern
+        technologies.
       </p>
+
 
       <div className="projects-container">
 
         {projects.map((project, index) => (
+
           <ProjectCard
             project={project}
             key={index}
           />
+
         ))}
 
       </div>
 
     </section>
+
   )
 }
+
 
 export default Projects
