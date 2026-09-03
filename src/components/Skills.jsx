@@ -13,7 +13,12 @@ const skills = [
   "UI/UX Design",
   "Graphic Design",
   "WordPress",
-  "Figma"
+  "Figma",
+  'php',
+  'Laravel',
+  'Typescript',
+  'Tailwind CSS',
+  'PostgreSQL'
 ]
 
 function Skills() {
