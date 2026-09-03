@@ -7,6 +7,8 @@ import pythonBeginners from "../assets/Python.jpg"
 import webDesignBeginners from "../assets/web-design.jpg"
 import reactSimplelearn from "../assets/reactsimplelearn.jpg"
 import ibmWebDevelopment from "../assets/IBMwebdevelopment.jpg"
+import agilesimple from "../assets/agilesimple.jpg"
+import nodejssimple from "../assets/nodejssimple.jpg"
 
 function Certifications() {
   const [selectedCertificate, setSelectedCertificate] = useState(null)
@@ -56,9 +58,21 @@ function Certifications() {
     },
         {
       id: "08",
+      title: "Agile Methodology for Project Management",
+      organization: "Simplilearn SkillUP",
+      image: agilesimple
+    },
+    {
+      id: "09",
       title: "Web Development Fundamentals",
       organization: "IBM SkillsBuild",
       image: ibmWebDevelopment
+    },
+    {
+      id: "10",
+      title: "Node.js for Beginners",
+      organization: "Simplilearn SkillUP",
+      image: nodejssimple
     }
   ]
 
