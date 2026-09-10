@@ -1,7 +1,19 @@
 import { useState } from "react"
 
 import sparehub1 from "../assets/projects/sparehub/1.png"
-import fivesamath1 from "../assets/projects/fivesamath/1.png"
+
+// FiveSamath Screenshots
+import fivesamath1 from "../assets/projects/fivesamath/1.jpg"
+import fivesamath2 from "../assets/projects/fivesamath/2.jpg"
+import fivesamath3 from "../assets/projects/fivesamath/3.jpg"
+import fivesamath4 from "../assets/projects/fivesamath/4.jpg"
+import fivesamath5 from "../assets/projects/fivesamath/5.jpg"
+import fivesamath6 from "../assets/projects/fivesamath/6.jpg"
+import fivesamath7 from "../assets/projects/fivesamath/7.jpg"
+import fivesamath8 from "../assets/projects/fivesamath/8.jpg"
+import fivesamath9 from "../assets/projects/fivesamath/9.jpg"
+import fivesamath10 from "../assets/projects/fivesamath/10.jpg"
+
 import nextstep1 from "../assets/projects/nextstep/1.png"
 
 import buseka1 from "../assets/projects/buseka/1.png"
@@ -158,6 +170,8 @@ function ProjectCard({ project }) {
 
         <div className="project-buttons">
 
+          {/* LIVE DEMO */}
+
           {project.live && (
 
             <a
@@ -172,6 +186,8 @@ function ProjectCard({ project }) {
           )}
 
 
+          {/* SINGLE GITHUB REPOSITORY */}
+
           {project.github && (
 
             <a
@@ -184,6 +200,24 @@ function ProjectCard({ project }) {
             </a>
 
           )}
+
+
+          {/* MULTIPLE GITHUB REPOSITORIES */}
+
+          {project.githubLinks &&
+            project.githubLinks.map((repository, index) => (
+
+              <a
+                key={index}
+                href={repository.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="project-btn github-btn"
+              >
+                {repository.label}
+              </a>
+
+            ))}
 
         </div>
 
@@ -222,24 +256,47 @@ function Projects() {
 
 
     {
-      title: "FiveSamath API",
+      title: "FiveSamath",
 
       description:
-        "An AI-powered Sinhala learning platform backend developed using ASP.NET and C#, providing APIs for learning content and intelligent educational features.",
+        "An AI-powered Grade 5 Scholarship learning platform designed for Sri Lankan students with multilingual Sinhala, Tamil, and English support. The platform includes structured lessons, chapter progression, quizzes, exam papers, textbooks, XP rewards, leaderboards, learning materials, and administrative content management.",
 
       images: [
         fivesamath1,
+        fivesamath2,
+        fivesamath3,
+        fivesamath4,
+        fivesamath5,
+        fivesamath6,
+        fivesamath7,
+        fivesamath8,
+        fivesamath9,
+        fivesamath10,
       ],
 
       tech: [
-        "ASP.NET",
+        "React",
+        "ASP.NET Core",
         "C#",
         "SQL",
         "AI",
       ],
 
-      github:
-        "https://github.com/chamodyha123/FiveSamath.API.git",
+      live:
+        "https://fivesamath-api-frontend.sudeesharavisara2.workers.dev/",
+
+      liveLabel: "Live Demo",
+
+      githubLinks: [
+        {
+          label: "Backend GitHub",
+          url: "https://github.com/chamodyha123/FiveSamath.API.git",
+        },
+        {
+          label: "Frontend GitHub",
+          url: "https://github.com/sudeesharavisara2-sys/FiveSamath.API-Frontend.git",
+        },
+      ],
 
       type: "Personal",
     },
