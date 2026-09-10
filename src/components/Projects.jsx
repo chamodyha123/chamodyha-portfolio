@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import sparehub1 from "../assets/projects/sparehub/1.png"
 
@@ -13,6 +13,7 @@ import fivesamath7 from "../assets/projects/fivesamath/7.jpg"
 import fivesamath8 from "../assets/projects/fivesamath/8.jpg"
 import fivesamath9 from "../assets/projects/fivesamath/9.jpg"
 import fivesamath10 from "../assets/projects/fivesamath/10.jpg"
+import fivesamath10 from "../assets/projects/fivesamath/11.jpg"
 
 import nextstep1 from "../assets/projects/nextstep/1.png"
 
@@ -41,6 +42,7 @@ import nsbm4 from "../assets/projects/nsbmdays/4.jpg"
 function ProjectCard({ project }) {
 
   const [currentImage, setCurrentImage] = useState(0)
+  const [isImageModalOpen, setIsImageModalOpen] = useState(false)
 
   const hasMultipleImages = project.images.length > 1
 
@@ -61,169 +63,288 @@ function ProjectCard({ project }) {
   }
 
 
+  const openImageModal = () => {
+    setIsImageModalOpen(true)
+  }
+
+
+  const closeImageModal = () => {
+    setIsImageModalOpen(false)
+  }
+
+
+  useEffect(() => {
+    if (!isImageModalOpen) return
+
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        setIsImageModalOpen(false)
+      }
+
+      if (event.key === "ArrowRight" && hasMultipleImages) {
+        setCurrentImage(
+          (prev) => (prev + 1) % project.images.length
+        )
+      }
+
+      if (event.key === "ArrowLeft" && hasMultipleImages) {
+        setCurrentImage(
+          (prev) =>
+            (prev - 1 + project.images.length) %
+            project.images.length
+        )
+      }
+    }
+
+    const previousOverflow = document.body.style.overflow
+
+    document.body.style.overflow = "hidden"
+    window.addEventListener("keydown", handleKeyDown)
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+      window.removeEventListener("keydown", handleKeyDown)
+    }
+  }, [isImageModalOpen, hasMultipleImages, project.images.length])
+
+
   return (
-    <div className="project-card">
+    <>
+      <div className="project-card">
 
-      {/* PROJECT IMAGE */}
+        {/* PROJECT IMAGE */}
 
-      <div className="project-image-wrapper">
+        <div className="project-image-wrapper">
 
-        <img
-          src={project.images[currentImage]}
-          alt={`${project.title} screenshot ${currentImage + 1}`}
-          className="project-img"
-        />
-
-
-        {/* IMAGE NAVIGATION */}
-
-        {hasMultipleImages && (
-          <>
-            <button
-              className="image-nav prev"
-              onClick={previousImage}
-              aria-label="Previous image"
-            >
-              ‹
-            </button>
+          <img
+            src={project.images[currentImage]}
+            alt={`${project.title} screenshot ${currentImage + 1}`}
+            className="project-img"
+            onClick={openImageModal}
+            title="Click to view full screen"
+          />
 
 
-            <button
-              className="image-nav next"
-              onClick={nextImage}
-              aria-label="Next image"
-            >
-              ›
-            </button>
+          {/* IMAGE NAVIGATION */}
+
+          {hasMultipleImages && (
+            <>
+              <button
+                className="image-nav prev"
+                onClick={previousImage}
+                aria-label="Previous image"
+              >
+                ‹
+              </button>
 
 
-            {/* IMAGE DOTS */}
-
-            <div className="image-dots">
-
-              {project.images.map((_, index) => (
-
-                <button
-                  key={index}
-                  className={
-                    index === currentImage
-                      ? "active"
-                      : ""
-                  }
-                  onClick={() =>
-                    setCurrentImage(index)
-                  }
-                  aria-label={`View image ${index + 1}`}
-                />
-
-              ))}
-
-            </div>
-
-          </>
-        )}
-
-      </div>
+              <button
+                className="image-nav next"
+                onClick={nextImage}
+                aria-label="Next image"
+              >
+                ›
+              </button>
 
 
-      {/* PROJECT CONTENT */}
+              {/* IMAGE DOTS */}
 
-      <div className="project-content">
+              <div className="image-dots">
 
-        <div className="project-title-row">
+                {project.images.map((_, index) => (
 
-          <h3>
-            {project.title}
-          </h3>
+                  <button
+                    key={index}
+                    className={
+                      index === currentImage
+                        ? "active"
+                        : ""
+                    }
+                    onClick={() =>
+                      setCurrentImage(index)
+                    }
+                    aria-label={`View image ${index + 1}`}
+                  />
 
+                ))}
 
-          <span
-            className={`project-type ${project.type.toLowerCase()}`}
-          >
-            {project.type}
-          </span>
+              </div>
+
+            </>
+          )}
 
         </div>
 
 
-        <p>
-          {project.description}
-        </p>
+        {/* PROJECT CONTENT */}
+
+        <div className="project-content">
+
+          <div className="project-title-row">
+
+            <h3>
+              {project.title}
+            </h3>
 
 
-        {/* TECHNOLOGIES */}
-
-        <div className="tech-stack">
-
-          {project.tech.map((tech, index) => (
-
-            <span key={index}>
-              {tech}
+            <span
+              className={`project-type ${project.type.toLowerCase()}`}
+            >
+              {project.type}
             </span>
 
-          ))}
-
-        </div>
+          </div>
 
 
-        {/* BUTTONS */}
-
-        <div className="project-buttons">
-
-          {/* LIVE DEMO */}
-
-          {project.live && (
-
-            <a
-              href={project.live}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="project-btn live-btn"
-            >
-              {project.liveLabel || "Live Demo"}
-            </a>
-
-          )}
+          <p>
+            {project.description}
+          </p>
 
 
-          {/* SINGLE GITHUB REPOSITORY */}
+          {/* TECHNOLOGIES */}
 
-          {project.github && (
+          <div className="tech-stack">
 
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="project-btn github-btn"
-            >
-              GitHub
-            </a>
+            {project.tech.map((tech, index) => (
 
-          )}
+              <span key={index}>
+                {tech}
+              </span>
+
+            ))}
+
+          </div>
 
 
-          {/* MULTIPLE GITHUB REPOSITORIES */}
+          {/* BUTTONS */}
 
-          {project.githubLinks &&
-            project.githubLinks.map((repository, index) => (
+          <div className="project-buttons">
+
+            {/* LIVE DEMO */}
+
+            {project.live && (
 
               <a
-                key={index}
-                href={repository.url}
+                href={project.live}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="project-btn live-btn"
+              >
+                {project.liveLabel || "Live Demo"}
+              </a>
+
+            )}
+
+
+            {/* SINGLE GITHUB REPOSITORY */}
+
+            {project.github && (
+
+              <a
+                href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="project-btn github-btn"
               >
-                {repository.label}
+                GitHub
               </a>
 
-            ))}
+            )}
+
+
+            {/* MULTIPLE GITHUB REPOSITORIES */}
+
+            {project.githubLinks &&
+              project.githubLinks.map((repository, index) => (
+
+                <a
+                  key={index}
+                  href={repository.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="project-btn github-btn"
+                >
+                  {repository.label}
+                </a>
+
+              ))}
+
+          </div>
 
         </div>
 
       </div>
 
-    </div>
+
+      {/* FULL-SCREEN PROJECT IMAGE MODAL */}
+
+      {isImageModalOpen && (
+        <div
+          className="project-image-modal"
+          onClick={closeImageModal}
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${project.title} image preview`}
+        >
+
+          <button
+            className="project-modal-close"
+            onClick={closeImageModal}
+            aria-label="Close full-screen image"
+          >
+            ×
+          </button>
+
+
+          <div
+            className="project-image-modal-content"
+            onClick={(event) => event.stopPropagation()}
+          >
+
+            <img
+              src={project.images[currentImage]}
+              alt={`${project.title} full-screen screenshot ${currentImage + 1}`}
+              className="project-modal-img"
+            />
+
+
+            {hasMultipleImages && (
+              <>
+                <button
+                  className="project-modal-nav project-modal-prev"
+                  onClick={previousImage}
+                  aria-label="Previous full-screen image"
+                >
+                  ‹
+                </button>
+
+                <button
+                  className="project-modal-nav project-modal-next"
+                  onClick={nextImage}
+                  aria-label="Next full-screen image"
+                >
+                  ›
+                </button>
+              </>
+            )}
+
+
+            <div className="project-modal-caption">
+              <strong>{project.title}</strong>
+
+              {hasMultipleImages && (
+                <span>
+                  {currentImage + 1} / {project.images.length}
+                </span>
+              )}
+            </div>
+
+          </div>
+
+        </div>
+      )}
+
+    </>
   )
 }
 
@@ -272,6 +393,7 @@ function Projects() {
         fivesamath8,
         fivesamath9,
         fivesamath10,
+        fivesamath11,
       ],
 
       tech: [
