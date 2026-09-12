@@ -524,7 +524,7 @@ const projects = [
       "A collaborative ERP platform designed to manage business operations through a modern web application architecture with authentication, database integration and enterprise modules.",
 
     technologies: [
-      "React",
+      "Typescript",
       "Spring Boot",
       "Java",
       "PostgreSQL",
