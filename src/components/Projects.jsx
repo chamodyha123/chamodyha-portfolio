@@ -48,18 +48,18 @@ import nsbm4 from "../assets/projects/nsbmdays/4.jpg"
 function ProjectCard({ project }) {
   const [currentImage, setCurrentImage] = useState(0)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [touchStartX, setTouchStartX] = useState(null)
 
   const images = project.images || []
+  const hasMultipleImages = images.length > 1
 
   const nextImage = () => {
-    if (images.length === 0) return
-
+    if (!hasMultipleImages) return
     setCurrentImage((prev) => (prev + 1) % images.length)
   }
 
   const previousImage = () => {
-    if (images.length === 0) return
-
+    if (!hasMultipleImages) return
     setCurrentImage(
       (prev) => (prev - 1 + images.length) % images.length
     )
@@ -69,19 +69,45 @@ function ProjectCard({ project }) {
     setCurrentImage(index)
   }
 
+  const openModal = () => {
+    if (images.length === 0) return
+    setIsModalOpen(true)
+  }
+
+  const closeModal = () => {
+    setIsModalOpen(false)
+  }
+
+  const handleTouchStart = (event) => {
+    setTouchStartX(event.touches[0].clientX)
+  }
+
+  const handleTouchEnd = (event) => {
+    if (touchStartX === null || !hasMultipleImages) return
+
+    const touchEndX = event.changedTouches[0].clientX
+    const swipeDistance = touchStartX - touchEndX
+
+    if (Math.abs(swipeDistance) > 45) {
+      if (swipeDistance > 0) {
+        nextImage()
+      } else {
+        previousImage()
+      }
+    }
+
+    setTouchStartX(null)
+  }
+
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (!isModalOpen) return
 
       if (event.key === "Escape") {
-        setIsModalOpen(false)
-      }
-
-      if (event.key === "ArrowRight") {
+        closeModal()
+      } else if (event.key === "ArrowRight") {
         nextImage()
-      }
-
-      if (event.key === "ArrowLeft") {
+      } else if (event.key === "ArrowLeft") {
         previousImage()
       }
     }
@@ -94,47 +120,58 @@ function ProjectCard({ project }) {
   }, [isModalOpen, images.length])
 
   useEffect(() => {
+    const previousOverflow = document.body.style.overflow
+
     if (isModalOpen) {
       document.body.style.overflow = "hidden"
-    } else {
-      document.body.style.overflow = ""
     }
 
     return () => {
-      document.body.style.overflow = ""
+      document.body.style.overflow = previousOverflow
     }
   }, [isModalOpen])
 
   return (
     <>
       <article className="project-card">
-
-        {/* Project Image */}
-        <div className="project-image-container">
-
+        <div
+          className="project-image-container"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
           {images.length > 0 ? (
             <>
               <img
                 src={images[currentImage]}
                 alt={`${project.title} screenshot ${currentImage + 1}`}
                 className="project-image"
-                onClick={() => setIsModalOpen(true)}
+                onClick={openModal}
+                loading="lazy"
+                draggable="false"
               />
 
-              {images.length > 1 && (
+              {hasMultipleImages && (
                 <>
                   <button
+                    type="button"
                     className="project-image-button project-image-button-left"
-                    onClick={previousImage}
-                    aria-label="Previous image"
+                    onClick={(event) => {
+                      event.stopPropagation()
+                      previousImage()
+                    }}
+                    aria-label={`Previous ${project.title} image`}
                   >
                     ‹
                   </button>
 
                   <button
+                    type="button"
                     className="project-image-button project-image-button-right"
-                    onClick={nextImage}
-                    aria-label="Next image"
+                    onClick={(event) => {
+                      event.stopPropagation()
+                      nextImage()
+                    }}
+                    aria-label={`Next ${project.title} image`}
                   >
                     ›
                   </button>
@@ -142,22 +179,35 @@ function ProjectCard({ project }) {
                   <div className="project-image-dots">
                     {images.map((_, index) => (
                       <button
+                        type="button"
                         key={index}
                         className={`project-image-dot ${
                           index === currentImage ? "active" : ""
                         }`}
-                        onClick={() => goToImage(index)}
-                        aria-label={`Go to image ${index + 1}`}
+                        onClick={(event) => {
+                          event.stopPropagation()
+                          goToImage(index)
+                        }}
+                        aria-label={`Show ${project.title} image ${index + 1}`}
                       />
                     ))}
+                  </div>
+
+                  <div className="project-image-counter">
+                    {currentImage + 1} / {images.length}
                   </div>
                 </>
               )}
 
               <button
+                type="button"
                 className="project-image-expand"
-                onClick={() => setIsModalOpen(true)}
-                aria-label="Open image"
+                onClick={(event) => {
+                  event.stopPropagation()
+                  openModal()
+                }}
+                aria-label={`Open ${project.title} image fullscreen`}
+                title="View fullscreen"
               >
                 ⛶
               </button>
@@ -167,13 +217,9 @@ function ProjectCard({ project }) {
               No Image Available
             </div>
           )}
-
         </div>
 
-
-        {/* Project Content */}
         <div className="project-content">
-
           <div className="project-category">
             {project.category}
           </div>
@@ -186,8 +232,6 @@ function ProjectCard({ project }) {
             {project.description}
           </p>
 
-
-          {/* Technologies */}
           {project.technologies && (
             <div className="project-technologies">
               {project.technologies.map((technology, index) => (
@@ -201,10 +245,7 @@ function ProjectCard({ project }) {
             </div>
           )}
 
-
-          {/* Project Links */}
           <div className="project-links">
-
             {project.live && (
               <a
                 href={project.live}
@@ -217,7 +258,6 @@ function ProjectCard({ project }) {
               </a>
             )}
 
-
             {project.github && (
               <a
                 href={project.github}
@@ -229,7 +269,6 @@ function ProjectCard({ project }) {
                 <span>↗</span>
               </a>
             )}
-
 
             {project.githubRepos &&
               project.githubRepos.map((repo, index) => (
@@ -244,83 +283,97 @@ function ProjectCard({ project }) {
                   <span>↗</span>
                 </a>
               ))}
-
           </div>
-
         </div>
-
       </article>
 
-
-      {/* Fullscreen Image Modal */}
       {isModalOpen && images.length > 0 && (
         <div
           className="project-image-modal"
-          onClick={() => setIsModalOpen(false)}
+          onClick={closeModal}
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${project.title} image viewer`}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
         >
-
-          <button
-            className="project-modal-close"
-            onClick={() => setIsModalOpen(false)}
-            aria-label="Close image"
-          >
-            ×
-          </button>
-
-
-          {images.length > 1 && (
-            <button
-              className="project-modal-arrow project-modal-arrow-left"
-              onClick={(event) => {
-                event.stopPropagation()
-                previousImage()
-              }}
-              aria-label="Previous image"
-            >
-              ‹
-            </button>
-          )}
-
-
-          <img
-            src={images[currentImage]}
-            alt={`${project.title} fullscreen screenshot ${
-              currentImage + 1
-            }`}
-            className="project-modal-image"
+          <div
+            className="project-modal-content"
             onClick={(event) => event.stopPropagation()}
-          />
-
-
-          {images.length > 1 && (
+          >
             <button
-              className="project-modal-arrow project-modal-arrow-right"
-              onClick={(event) => {
-                event.stopPropagation()
-                nextImage()
-              }}
-              aria-label="Next image"
+              type="button"
+              className="project-modal-close"
+              onClick={closeModal}
+              aria-label="Close image viewer"
             >
-              ›
+              ×
             </button>
-          )}
 
+            {hasMultipleImages && (
+              <button
+                type="button"
+                className="project-modal-arrow project-modal-arrow-left"
+                onClick={previousImage}
+                aria-label="Previous image"
+              >
+                ‹
+              </button>
+            )}
 
-          {images.length > 1 && (
-            <div
-              className="project-modal-counter"
-              onClick={(event) => event.stopPropagation()}
-            >
-              {currentImage + 1} / {images.length}
+            <img
+              src={images[currentImage]}
+              alt={`${project.title} fullscreen screenshot ${
+                currentImage + 1
+              }`}
+              className="project-modal-image"
+              draggable="false"
+            />
+
+            {hasMultipleImages && (
+              <button
+                type="button"
+                className="project-modal-arrow project-modal-arrow-right"
+                onClick={nextImage}
+                aria-label="Next image"
+              >
+                ›
+              </button>
+            )}
+
+            <div className="project-modal-bottom">
+              <div className="project-modal-title">
+                {project.title}
+              </div>
+
+              {hasMultipleImages && (
+                <>
+                  <div className="project-modal-dots">
+                    {images.map((_, index) => (
+                      <button
+                        type="button"
+                        key={index}
+                        className={`project-modal-dot ${
+                          index === currentImage ? "active" : ""
+                        }`}
+                        onClick={() => goToImage(index)}
+                        aria-label={`Show fullscreen image ${index + 1}`}
+                      />
+                    ))}
+                  </div>
+
+                  <div className="project-modal-counter">
+                    {currentImage + 1} / {images.length}
+                  </div>
+                </>
+              )}
             </div>
-          )}
-
+          </div>
         </div>
       )}
     </>
   )
 }
-
 
 /* =========================================================
    PROJECT DATA
@@ -594,12 +647,7 @@ function Projects() {
     >
 
       <div className="projects-header">
-
-        <p className="section-label">
-          MY WORK
-        </p>
-
-        <h2>
+<h2>
           My Projects
         </h2>
 
