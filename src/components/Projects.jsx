@@ -13,26 +13,32 @@ import fivesamath7 from "../assets/projects/fivesamath/7.jpg"
 import fivesamath8 from "../assets/projects/fivesamath/8.jpg"
 import fivesamath9 from "../assets/projects/fivesamath/9.jpg"
 import fivesamath10 from "../assets/projects/fivesamath/10.jpg"
-import fivesamath10 from "../assets/projects/fivesamath/11.jpg"
+import fivesamath11 from "../assets/projects/fivesamath/11.jpg"
 
+// NextStep
 import nextstep1 from "../assets/projects/nextstep/1.png"
 
+// Bus Eka
 import buseka1 from "../assets/projects/buseka/1.png"
 import buseka2 from "../assets/projects/buseka/2.png"
 import buseka3 from "../assets/projects/buseka/3.png"
 
+// NexaERP
 import nexaerp1 from "../assets/projects/nexaerp/1.png"
 import nexaerp2 from "../assets/projects/nexaerp/2.png"
 import nexaerp3 from "../assets/projects/nexaerp/3.png"
 
+// HirePath
 import hirepath1 from "../assets/projects/hirepath/1.png"
 import hirepath2 from "../assets/projects/hirepath/2.png"
 import hirepath3 from "../assets/projects/hirepath/3.png"
 
+// Library Management System
 import library1 from "../assets/projects/library/1.png"
 import library2 from "../assets/projects/library/2.png"
 import library3 from "../assets/projects/library/3.png"
 
+// NSBM Days
 import nsbm1 from "../assets/projects/nsbmdays/1.jpg"
 import nsbm2 from "../assets/projects/nsbmdays/2.jpg"
 import nsbm3 from "../assets/projects/nsbmdays/3.jpg"
@@ -40,592 +46,583 @@ import nsbm4 from "../assets/projects/nsbmdays/4.jpg"
 
 
 function ProjectCard({ project }) {
-
   const [currentImage, setCurrentImage] = useState(0)
-  const [isImageModalOpen, setIsImageModalOpen] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const hasMultipleImages = project.images.length > 1
-
+  const images = project.images || []
 
   const nextImage = () => {
-    setCurrentImage(
-      (prev) => (prev + 1) % project.images.length
-    )
-  }
+    if (images.length === 0) return
 
+    setCurrentImage((prev) => (prev + 1) % images.length)
+  }
 
   const previousImage = () => {
+    if (images.length === 0) return
+
     setCurrentImage(
-      (prev) =>
-        (prev - 1 + project.images.length) %
-        project.images.length
+      (prev) => (prev - 1 + images.length) % images.length
     )
   }
 
-
-  const openImageModal = () => {
-    setIsImageModalOpen(true)
+  const goToImage = (index) => {
+    setCurrentImage(index)
   }
-
-
-  const closeImageModal = () => {
-    setIsImageModalOpen(false)
-  }
-
 
   useEffect(() => {
-    if (!isImageModalOpen) return
-
     const handleKeyDown = (event) => {
+      if (!isModalOpen) return
+
       if (event.key === "Escape") {
-        setIsImageModalOpen(false)
+        setIsModalOpen(false)
       }
 
-      if (event.key === "ArrowRight" && hasMultipleImages) {
-        setCurrentImage(
-          (prev) => (prev + 1) % project.images.length
-        )
+      if (event.key === "ArrowRight") {
+        nextImage()
       }
 
-      if (event.key === "ArrowLeft" && hasMultipleImages) {
-        setCurrentImage(
-          (prev) =>
-            (prev - 1 + project.images.length) %
-            project.images.length
-        )
+      if (event.key === "ArrowLeft") {
+        previousImage()
       }
     }
 
-    const previousOverflow = document.body.style.overflow
-
-    document.body.style.overflow = "hidden"
-    window.addEventListener("keydown", handleKeyDown)
+    document.addEventListener("keydown", handleKeyDown)
 
     return () => {
-      document.body.style.overflow = previousOverflow
-      window.removeEventListener("keydown", handleKeyDown)
+      document.removeEventListener("keydown", handleKeyDown)
     }
-  }, [isImageModalOpen, hasMultipleImages, project.images.length])
+  }, [isModalOpen, images.length])
 
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = ""
+    }
+
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [isModalOpen])
 
   return (
     <>
-      <div className="project-card">
+      <article className="project-card">
 
-        {/* PROJECT IMAGE */}
+        {/* Project Image */}
+        <div className="project-image-container">
 
-        <div className="project-image-wrapper">
-
-          <img
-            src={project.images[currentImage]}
-            alt={`${project.title} screenshot ${currentImage + 1}`}
-            className="project-img"
-            onClick={openImageModal}
-            title="Click to view full screen"
-          />
-
-
-          {/* IMAGE NAVIGATION */}
-
-          {hasMultipleImages && (
+          {images.length > 0 ? (
             <>
-              <button
-                className="image-nav prev"
-                onClick={previousImage}
-                aria-label="Previous image"
-              >
-                ‹
-              </button>
+              <img
+                src={images[currentImage]}
+                alt={`${project.title} screenshot ${currentImage + 1}`}
+                className="project-image"
+                onClick={() => setIsModalOpen(true)}
+              />
 
-
-              <button
-                className="image-nav next"
-                onClick={nextImage}
-                aria-label="Next image"
-              >
-                ›
-              </button>
-
-
-              {/* IMAGE DOTS */}
-
-              <div className="image-dots">
-
-                {project.images.map((_, index) => (
+              {images.length > 1 && (
+                <>
+                  <button
+                    className="project-image-button project-image-button-left"
+                    onClick={previousImage}
+                    aria-label="Previous image"
+                  >
+                    ‹
+                  </button>
 
                   <button
-                    key={index}
-                    className={
-                      index === currentImage
-                        ? "active"
-                        : ""
-                    }
-                    onClick={() =>
-                      setCurrentImage(index)
-                    }
-                    aria-label={`View image ${index + 1}`}
-                  />
+                    className="project-image-button project-image-button-right"
+                    onClick={nextImage}
+                    aria-label="Next image"
+                  >
+                    ›
+                  </button>
 
-                ))}
+                  <div className="project-image-dots">
+                    {images.map((_, index) => (
+                      <button
+                        key={index}
+                        className={`project-image-dot ${
+                          index === currentImage ? "active" : ""
+                        }`}
+                        onClick={() => goToImage(index)}
+                        aria-label={`Go to image ${index + 1}`}
+                      />
+                    ))}
+                  </div>
+                </>
+              )}
 
-              </div>
-
+              <button
+                className="project-image-expand"
+                onClick={() => setIsModalOpen(true)}
+                aria-label="Open image"
+              >
+                ⛶
+              </button>
             </>
+          ) : (
+            <div className="project-image-placeholder">
+              No Image Available
+            </div>
           )}
 
         </div>
 
 
-        {/* PROJECT CONTENT */}
-
+        {/* Project Content */}
         <div className="project-content">
 
-          <div className="project-title-row">
-
-            <h3>
-              {project.title}
-            </h3>
-
-
-            <span
-              className={`project-type ${project.type.toLowerCase()}`}
-            >
-              {project.type}
-            </span>
-
+          <div className="project-category">
+            {project.category}
           </div>
 
+          <h3 className="project-title">
+            {project.title}
+          </h3>
 
-          <p>
+          <p className="project-description">
             {project.description}
           </p>
 
 
-          {/* TECHNOLOGIES */}
+          {/* Technologies */}
+          {project.technologies && (
+            <div className="project-technologies">
+              {project.technologies.map((technology, index) => (
+                <span
+                  key={index}
+                  className="project-tech"
+                >
+                  {technology}
+                </span>
+              ))}
+            </div>
+          )}
 
-          <div className="tech-stack">
 
-            {project.tech.map((tech, index) => (
-
-              <span key={index}>
-                {tech}
-              </span>
-
-            ))}
-
-          </div>
-
-
-          {/* BUTTONS */}
-
-          <div className="project-buttons">
-
-            {/* LIVE DEMO */}
+          {/* Project Links */}
+          <div className="project-links">
 
             {project.live && (
-
               <a
                 href={project.live}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="project-btn live-btn"
+                className="project-link project-live-link"
               >
-                {project.liveLabel || "Live Demo"}
+                <span>Live Demo</span>
+                <span>↗</span>
               </a>
-
             )}
 
 
-            {/* SINGLE GITHUB REPOSITORY */}
-
             {project.github && (
-
               <a
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="project-btn github-btn"
+                className="project-link project-github-link"
               >
-                GitHub
+                <span>GitHub</span>
+                <span>↗</span>
               </a>
-
             )}
 
 
-            {/* MULTIPLE GITHUB REPOSITORIES */}
-
-            {project.githubLinks &&
-              project.githubLinks.map((repository, index) => (
-
+            {project.githubRepos &&
+              project.githubRepos.map((repo, index) => (
                 <a
                   key={index}
-                  href={repository.url}
+                  href={repo.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="project-btn github-btn"
+                  className="project-link project-github-link"
                 >
-                  {repository.label}
+                  <span>{repo.name}</span>
+                  <span>↗</span>
                 </a>
-
               ))}
 
           </div>
 
         </div>
 
-      </div>
+      </article>
 
 
-      {/* FULL-SCREEN PROJECT IMAGE MODAL */}
-
-      {isImageModalOpen && (
+      {/* Fullscreen Image Modal */}
+      {isModalOpen && images.length > 0 && (
         <div
           className="project-image-modal"
-          onClick={closeImageModal}
-          role="dialog"
-          aria-modal="true"
-          aria-label={`${project.title} image preview`}
+          onClick={() => setIsModalOpen(false)}
         >
 
           <button
             className="project-modal-close"
-            onClick={closeImageModal}
-            aria-label="Close full-screen image"
+            onClick={() => setIsModalOpen(false)}
+            aria-label="Close image"
           >
             ×
           </button>
 
 
-          <div
-            className="project-image-modal-content"
+          {images.length > 1 && (
+            <button
+              className="project-modal-arrow project-modal-arrow-left"
+              onClick={(event) => {
+                event.stopPropagation()
+                previousImage()
+              }}
+              aria-label="Previous image"
+            >
+              ‹
+            </button>
+          )}
+
+
+          <img
+            src={images[currentImage]}
+            alt={`${project.title} fullscreen screenshot ${
+              currentImage + 1
+            }`}
+            className="project-modal-image"
             onClick={(event) => event.stopPropagation()}
-          >
-
-            <img
-              src={project.images[currentImage]}
-              alt={`${project.title} full-screen screenshot ${currentImage + 1}`}
-              className="project-modal-img"
-            />
+          />
 
 
-            {hasMultipleImages && (
-              <>
-                <button
-                  className="project-modal-nav project-modal-prev"
-                  onClick={previousImage}
-                  aria-label="Previous full-screen image"
-                >
-                  ‹
-                </button>
-
-                <button
-                  className="project-modal-nav project-modal-next"
-                  onClick={nextImage}
-                  aria-label="Next full-screen image"
-                >
-                  ›
-                </button>
-              </>
-            )}
+          {images.length > 1 && (
+            <button
+              className="project-modal-arrow project-modal-arrow-right"
+              onClick={(event) => {
+                event.stopPropagation()
+                nextImage()
+              }}
+              aria-label="Next image"
+            >
+              ›
+            </button>
+          )}
 
 
-            <div className="project-modal-caption">
-              <strong>{project.title}</strong>
-
-              {hasMultipleImages && (
-                <span>
-                  {currentImage + 1} / {project.images.length}
-                </span>
-              )}
+          {images.length > 1 && (
+            <div
+              className="project-modal-counter"
+              onClick={(event) => event.stopPropagation()}
+            >
+              {currentImage + 1} / {images.length}
             </div>
-
-          </div>
+          )}
 
         </div>
       )}
-
     </>
   )
 }
 
 
+/* =========================================================
+   PROJECT DATA
+========================================================= */
+
+const projects = [
+
+  {
+    title: "Spare Part Shop",
+
+    category: "Web Development",
+
+    description:
+      "A responsive spare parts shopping website designed to provide users with a simple and convenient way to browse and explore vehicle spare parts.",
+
+    technologies: [
+      "HTML",
+      "CSS",
+      "Bootstrap",
+    ],
+
+    images: [
+      sparehub1,
+    ],
+
+    github:
+      "https://github.com/chamodyha123/spare-part-shop.git",
+
+    type: "Personal",
+  },
+
+
+  {
+    title: "FiveSamath",
+
+    category: "Full-Stack / Educational Platform",
+
+    description:
+      "An educational learning platform designed for Grade 5 scholarship students. The system provides learning materials, videos, quizzes, leaderboard functionality and an AI-powered tutor to support students.",
+
+    technologies: [
+      "React",
+      "ASP.NET Core",
+      "C#",
+      "SQL Server",
+      "AI",
+    ],
+
+    images: [
+      fivesamath1,
+      fivesamath2,
+      fivesamath3,
+      fivesamath4,
+      fivesamath5,
+      fivesamath6,
+      fivesamath7,
+      fivesamath8,
+      fivesamath9,
+      fivesamath10,
+      fivesamath11,
+    ],
+
+    live:
+      "https://fivesamath-api-frontend.sudeesharavisara2.workers.dev/",
+
+    githubRepos: [
+      {
+        name: "Backend",
+        url:
+          "https://github.com/chamodyha123/FiveSamath.API.git",
+      },
+      {
+        name: "Frontend",
+        url:
+          "https://github.com/sudeesharavisara2-sys/FiveSamath.API-Frontend.git",
+      },
+    ],
+
+    type: "Personal",
+  },
+
+
+  {
+    title: "NextStep Platform",
+
+    category: "Full-Stack Web Application",
+
+    description:
+      "A collaborative full-stack platform developed using React and ASP.NET. The system includes JWT authentication, SQL Server integration and modern web application architecture.",
+
+    technologies: [
+      "React",
+      "ASP.NET",
+      "JWT",
+      "SQL Server",
+    ],
+
+    images: [
+      nextstep1,
+    ],
+
+    github:
+      "https://github.com/dilshan24142/NextStep.git",
+
+    type: "Collaborative",
+  },
+
+
+  {
+    title: "Bus Eka",
+
+    category: "Full-Stack / Transportation",
+
+    description:
+      "A Sri Lankan bus tracking and reservation platform designed to help passengers track buses, view trips, reserve seats and receive real-time transportation information.",
+
+    technologies: [
+      "Next.js",
+      "Node.js",
+      "Express.js",
+      "Prisma",
+      "PostgreSQL",
+      "Socket.IO",
+    ],
+
+    images: [
+      buseka1,
+      buseka2,
+      buseka3,
+    ],
+
+    live:
+      "https://bus-eka-frontend.vercel.app/",
+
+    github:
+      "https://github.com/chamodyha123/bus-eka-backend.git",
+
+    type: "Personal",
+  },
+
+
+  {
+    title: "NexaERP",
+
+    category: "Enterprise Resource Planning",
+
+    description:
+      "A collaborative ERP platform designed to manage business operations through a modern web application architecture with authentication, database integration and enterprise modules.",
+
+    technologies: [
+      "React",
+      "Spring Boot",
+      "Java",
+      "PostgreSQL",
+      "JWT",
+    ],
+
+    images: [
+      nexaerp1,
+      nexaerp2,
+      nexaerp3,
+    ],
+
+    live:
+      "https://nexaerp-frontend.vercel.app/",
+
+    github:
+      "https://github.com/chamodyha123/Erp_frontend.git",
+
+    type: "Collaborative",
+  },
+
+
+  {
+    title: "HirePath",
+
+    category: "AI / Recruitment Platform",
+
+    description:
+      "An AI-powered recruitment and applicant tracking platform designed to support candidates, recruiters and hiring managers. The system includes authentication, role-based access and AI-assisted CV analysis.",
+
+    technologies: [
+      "React",
+      "ASP.NET Core",
+      "C#",
+      "SQL Server",
+      "AI",
+    ],
+
+    images: [
+      hirepath1,
+      hirepath2,
+      hirepath3,
+    ],
+
+    github:
+      "https://github.com/chamodyha123/HirePath.git",
+
+    type: "Collaborative",
+  },
+
+
+  {
+    title: "Library Management System",
+
+    category: "Software Development",
+
+    description:
+      "A library management application built to manage books, users and library operations using a structured backend architecture and relational database.",
+
+    technologies: [
+      "C#",
+      "ASP.NET",
+      "SQL Server",
+      "Entity Framework Core",
+    ],
+
+    images: [
+      library1,
+      library2,
+      library3,
+    ],
+
+    github:
+      "https://github.com/chamodyha123/LibrarySolution.git",
+
+    type: "Personal",
+  },
+
+
+  {
+    title: "NSBM Days",
+
+    category: "UI/UX Design",
+
+    description:
+      "A UI/UX design project focused on creating an inclusive and user-friendly mobile experience for NSBM Days. The project includes user interface design, interaction flows and high-fidelity prototyping.",
+
+    technologies: [
+      "Figma",
+      "UI/UX Design",
+      "Prototyping",
+    ],
+
+    images: [
+      nsbm1,
+      nsbm2,
+      nsbm3,
+      nsbm4,
+    ],
+
+    live:
+      "https://www.figma.com/proto/2jPpx0t81FkPxJIXhMVcUJ/NSBMDAYS-UI?node-id=296-32&t=Hz2eiAu2xcEr1AXf-1",
+
+    type: "Design",
+  },
+
+]
+
+
+/* =========================================================
+   PROJECTS SECTION
+========================================================= */
+
 function Projects() {
 
-  const projects = [
-
-    {
-      title: "Spare Part Shop",
-
-      description:
-        "A modern vehicle spare parts e-commerce platform designed to provide customers with an easy and convenient way to browse and purchase automotive spare parts.",
-
-      images: [
-        sparehub1,
-      ],
-
-      tech: [
-        "HTML",
-        "CSS",
-        "Bootstrap",
-      ],
-
-      github:
-        "https://github.com/chamodyha123/spare-part-shop.git",
-
-      type: "Personal",
-    },
-
-
-    {
-      title: "FiveSamath",
-
-      description:
-        "An AI-powered Grade 5 Scholarship learning platform designed for Sri Lankan students with multilingual Sinhala, Tamil, and English support. The platform includes structured lessons, chapter progression, quizzes, exam papers, textbooks, XP rewards, leaderboards, learning materials, and administrative content management.",
-
-      images: [
-        fivesamath1,
-        fivesamath2,
-        fivesamath3,
-        fivesamath4,
-        fivesamath5,
-        fivesamath6,
-        fivesamath7,
-        fivesamath8,
-        fivesamath9,
-        fivesamath10,
-        fivesamath11,
-      ],
-
-      tech: [
-        "React",
-        "ASP.NET Core",
-        "C#",
-        "SQL",
-        "AI",
-      ],
-
-      live:
-        "https://fivesamath-api-frontend.sudeesharavisara2.workers.dev/",
-
-      liveLabel: "Live Demo",
-
-      githubLinks: [
-        {
-          label: "Backend GitHub",
-          url: "https://github.com/chamodyha123/FiveSamath.API.git",
-        },
-        {
-          label: "Frontend GitHub",
-          url: "https://github.com/sudeesharavisara2-sys/FiveSamath.API-Frontend.git",
-        },
-      ],
-
-      type: "Personal",
-    },
-
-
-    {
-      title: "NextStep Platform",
-
-      description:
-        "A full-stack university communication and student support platform developed collaboratively to provide services such as lost and found, shuttle information, events, and administrative management.",
-
-      images: [
-        nextstep1,
-      ],
-
-      tech: [
-        "React",
-        "ASP.NET",
-        "JWT",
-        "SQL Server",
-      ],
-
-      github:
-        "https://github.com/dilshan24142/NextStep.git",
-
-      type: "Collaborative",
-    },
-
-
-    {
-      title: "Bus Eka",
-
-      description:
-        "A smart digital transportation platform for Sri Lankan public bus transportation. Passengers can search trips, reserve seats, receive QR tickets, and track buses while transport staff manage buses, trips, tickets, GPS tracking, and emergencies.",
-
-      images: [
-        buseka1,
-        buseka2,
-        buseka3,
-      ],
-
-      tech: [
-        "Next.js",
-        "Node.js",
-        "Express.js",
-        "Prisma",
-        "PostgreSQL",
-        "Socket.IO",
-      ],
-
-      github:
-        "https://github.com/chamodyha123/bus-eka-backend.git",
-
-      live:
-        "https://bus-eka-frontend.vercel.app/",
-
-      type: "Personal",
-    },
-
-
-    {
-      title: "NexaERP",
-
-      description:
-        "A modern enterprise resource planning platform developed collaboratively to manage business operations, resources, users, and organizational processes through a centralized digital system.",
-
-      images: [
-        nexaerp1,
-        nexaerp2,
-        nexaerp3,
-      ],
-
-      tech: [
-        "React",
-        "Spring Boot",
-        "Java",
-        "PostgreSQL",
-        "JWT",
-      ],
-
-      github:
-        "https://github.com/chamodyha123/Erp_frontend.git",
-
-      live:
-        "https://nexaerp-frontend.vercel.app/",
-
-      type: "Collaborative",
-    },
-
-
-    {
-      title: "HirePath",
-
-      description:
-        "An AI-powered recruitment and talent management platform developed collaboratively to streamline recruitment processes, candidate management, and hiring activities.",
-
-      images: [
-        hirepath1,
-        hirepath2,
-        hirepath3,
-      ],
-
-      tech: [
-        "React",
-        "ASP.NET Core",
-        "C#",
-        "SQL Server",
-        "AI",
-      ],
-
-      github:
-        "https://github.com/chamodyha123/HirePath.git",
-
-      type: "Collaborative",
-    },
-
-
-    {
-      title: "Library Management System",
-
-      description:
-        "A complete library management system developed as a personal project to manage books, users, borrowing, returns, and library operations through a centralized application.",
-
-      images: [
-        library1,
-        library2,
-        library3,
-      ],
-
-      tech: [
-        "C#",
-        "ASP.NET",
-        "SQL Server",
-        "EF Core",
-      ],
-
-      github:
-        "https://github.com/chamodyha123/LibrarySolution.git",
-
-      type: "Personal",
-    },
-
-
-    {
-      title: "NSBM Days",
-
-      description:
-        "A UI/UX design for a mobile app that simplifies daily campus life at NSBM Green University, covering onboarding, student ID/E-Card, campus navigation, dining, library search, friend tracking, and account settings.",
-
-      images: [
-        nsbm1,
-        nsbm2,
-        nsbm3,
-        nsbm4,
-      ],
-
-      tech: [
-        "Figma",
-        "UI/UX Design",
-        "Prototyping",
-      ],
-
-      live:
-        "https://www.figma.com/proto/2jPpx0t81FkPxJIXhMVcUJ/NSBMDAYS-UI?node-id=296-32&t=Hz2eiAu2xcEr1AXf-1",
-
-      liveLabel: "View Prototype",
-
-      type: "Design",
-    },
-
-  ]
-
-
   return (
-
     <section
       id="projects"
       className="projects"
     >
 
-      <h2>
-        My Projects
-      </h2>
+      <div className="projects-header">
 
+        <p className="section-label">
+          MY WORK
+        </p>
 
-      <p className="projects-subtitle">
-        A collection of personal and collaborative
-        software projects developed using modern
-        technologies.
-      </p>
+        <h2>
+          My Projects
+        </h2>
+
+        <p className="projects-subtitle">
+          A collection of software engineering, full-stack
+          development, AI, database and UI/UX projects.
+        </p>
+
+      </div>
 
 
       <div className="projects-container">
 
         {projects.map((project, index) => (
-
           <ProjectCard
+            key={`${project.title}-${index}`}
             project={project}
-            key={index}
           />
-
         ))}
 
       </div>
 
     </section>
-
   )
 }
 
