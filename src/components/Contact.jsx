@@ -1,153 +1,121 @@
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import emailjs from "@emailjs/browser"
+import { FaFacebook, FaGithub, FaLinkedin, FaWhatsapp } from "react-icons/fa"
+import { MdEmail, MdLocationOn } from "react-icons/md"
+import FadeIn from "./FadeIn"
 
-import {
-  FaGithub,
-  FaFacebook,
-  FaLinkedin,
-  FaWhatsapp
-} from "react-icons/fa"
+const contactDetails = [
+  { icon: MdEmail, label: "Email", value: "peshanchamoth759@gmail.com" },
+  { icon: FaWhatsapp, label: "WhatsApp", value: "0761167038" },
+  { icon: MdLocationOn, label: "Location", value: "Avissawella, Sri Lanka" },
+]
 
-import {
-  MdEmail,
-  MdLocationOn
-} from "react-icons/md"
+const socialLinks = [
+  { label: "GitHub", href: "https://github.com/chamodyha123", icon: FaGithub },
+  { label: "Facebook", href: "https://www.facebook.com/chamoth.peshan.7", icon: FaFacebook },
+  { label: "LinkedIn", href: "https://www.linkedin.com/in/chamodyha-peshan-754652216/", icon: FaLinkedin },
+]
 
 function Contact() {
-
   const form = useRef()
+  const [status, setStatus] = useState("idle")
 
-  const sendEmail = (e) => {
-    e.preventDefault()
+  const sendEmail = async (event) => {
+    event.preventDefault()
+    setStatus("sending")
 
-    emailjs
-      .sendForm(
+    try {
+      await emailjs.sendForm(
         "service_my0b6zf",
         "template_r31gl9a",
         form.current,
         "X_06iX_Nsw5Eilf5P"
       )
 
-      .then(
-        () => {
-          alert("Message sent successfully!")
-        },
-
-        () => {
-          alert("Failed to send message.")
-        }
-      )
-
-    e.target.reset()
+      form.current.reset()
+      setStatus("success")
+    } catch {
+      setStatus("error")
+    }
   }
 
   return (
-   <section id="contact" className="contact">
+    <section id="contact" className="contact" aria-labelledby="contact-title">
+      <div className="contact-shell">
+        <div className="contact-layout">
+          <div className="contact-left">
+            <FadeIn from="left">
+              <p className="contact-eyebrow"><span aria-hidden="true" />Let&apos;s Connect</p>
+              <h2 id="contact-title">Let&apos;s create something <span>meaningful.</span></h2>
+              <p className="contact-intro">
+                I&apos;m open to internships, collaborations, frontend development,
+                UI/UX design, and graphic design projects. Reach out and let&apos;s
+                explore what we can build together.
+              </p>
+            </FadeIn>
 
-      <h2>Contact Me</h2>
+            <FadeIn from="left" delay={110}>
+              <div className="contact-details">
+                {contactDetails.map(({ icon: Icon, label, value }) => (
+                  <div className="contact-item" key={label}>
+                    <span className="contact-detail-icon" aria-hidden="true"><Icon /></span>
+                    <span>
+                      <small>{label}</small>
+                      {value}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </FadeIn>
 
-      <div className="contact-container">
-
-        <div className="contact-left">
-
-          <h3>Let's Work Together</h3>
-
-          <p>
-            Feel free to contact me for internships,
-            collaborations, frontend development,
-            UI/UX design, or graphic design projects.
-          </p>
-
-          <div className="contact-details">
-
-            <div className="contact-item">
-              <MdEmail />
-              <span>
-                peshanchamoth759@gmail.com
-              </span>
-            </div>
-
-            <div className="contact-item">
-              <FaWhatsapp />
-              <span>
-                0761167038
-              </span>
-            </div>
-
-            <div className="contact-item">
-              <MdLocationOn />
-              <span>
-                Avissawella, Sri Lanka
-              </span>
-            </div>
-
+            <FadeIn from="left" delay={180}>
+              <div className="contact-socials">
+                <p>Find me on</p>
+                <div className="social-icons">
+                  {socialLinks.map(({ label, href, icon: Icon }) => (
+                    <a key={label} href={href} target="_blank" rel="noreferrer" aria-label={label}>
+                      <Icon />
+                      <span>{label}</span>
+                    </a>
+                  ))}
+                </div>
+              </div>
+            </FadeIn>
           </div>
 
-          <div className="social-icons">
+          <FadeIn from="right" delay={160}>
+            <form ref={form} onSubmit={sendEmail} className="contact-form">
+              <div className="contact-form-heading">
+                <h3>Send a message</h3>
+                <p>I&apos;ll get back to you as soon as I can.</p>
+              </div>
 
-            <a
-              href="https://github.com/chamodyha123"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <FaGithub />
-            </a>
+              <label>
+                Your name
+                <input type="text" name="from_name" placeholder="Your name" required />
+              </label>
 
-            <a
-              href="https://www.facebook.com/chamoth.peshan.7"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <FaFacebook />
-            </a>
+              <label>
+                Email address
+                <input type="email" name="from_email" placeholder="you@example.com" required />
+              </label>
 
-            <a
-              href="https://www.linkedin.com/in/chamodyha-peshan-754652216/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <FaLinkedin />
-            </a>
+              <label>
+                Message
+                <textarea name="message" placeholder="Tell me a little about your project..." rows="6" required />
+              </label>
 
-          </div>
+              {status === "success" && <p className="contact-status is-success" role="status">Message sent successfully. Thank you for reaching out.</p>}
+              {status === "error" && <p className="contact-status is-error" role="alert">Something went wrong. Please try again.</p>}
 
+              <button type="submit" disabled={status === "sending"}>
+                {status === "sending" ? "Sending message..." : "Send Message"}
+                {status !== "sending" && <span aria-hidden="true">→</span>}
+              </button>
+            </form>
+          </FadeIn>
         </div>
-
-        <form
-          ref={form}
-          onSubmit={sendEmail}
-          className="contact-form"
-        >
-
-          <input
-            type="text"
-            name="from_name"
-            placeholder="Your Name"
-            required
-          />
-
-          <input
-            type="email"
-            name="from_email"
-            placeholder="Your Email"
-            required
-          />
-
-          <textarea
-            name="message"
-            placeholder="Your Message"
-            rows="6"
-            required
-          ></textarea>
-
-          <button type="submit">
-            Send Message
-          </button>
-
-        </form>
-
       </div>
-
     </section>
   )
 }

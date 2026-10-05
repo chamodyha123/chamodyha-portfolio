@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
+import FadeIn from "./FadeIn"
 
 import sparehub1 from "../assets/projects/sparehub/1.png"
 
@@ -45,7 +46,7 @@ import nsbm3 from "../assets/projects/nsbmdays/3.jpg"
 import nsbm4 from "../assets/projects/nsbmdays/4.jpg"
 
 
-function ProjectCard({ project }) {
+function ProjectCard({ project, index }) {
   const [currentImage, setCurrentImage] = useState(0)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [touchStartX, setTouchStartX] = useState(null)
@@ -53,17 +54,17 @@ function ProjectCard({ project }) {
   const images = project.images || []
   const hasMultipleImages = images.length > 1
 
-  const nextImage = () => {
+  const nextImage = useCallback(() => {
     if (!hasMultipleImages) return
     setCurrentImage((prev) => (prev + 1) % images.length)
-  }
+  }, [hasMultipleImages, images.length])
 
-  const previousImage = () => {
+  const previousImage = useCallback(() => {
     if (!hasMultipleImages) return
     setCurrentImage(
       (prev) => (prev - 1 + images.length) % images.length
     )
-  }
+  }, [hasMultipleImages, images.length])
 
   const goToImage = (index) => {
     setCurrentImage(index)
@@ -100,9 +101,9 @@ function ProjectCard({ project }) {
   }
 
   useEffect(() => {
-    const handleKeyDown = (event) => {
-      if (!isModalOpen) return
+    if (!isModalOpen) return undefined
 
+    const handleKeyDown = (event) => {
       if (event.key === "Escape") {
         closeModal()
       } else if (event.key === "ArrowRight") {
@@ -117,7 +118,7 @@ function ProjectCard({ project }) {
     return () => {
       document.removeEventListener("keydown", handleKeyDown)
     }
-  }, [isModalOpen, images.length])
+  }, [isModalOpen, nextImage, previousImage])
 
   useEffect(() => {
     const previousOverflow = document.body.style.overflow
@@ -139,16 +140,23 @@ function ProjectCard({ project }) {
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
+          <span className="project-number">{String(index + 1).padStart(2, "0")}</span>
           {images.length > 0 ? (
             <>
-              <img
-                src={images[currentImage]}
-                alt={`${project.title} screenshot ${currentImage + 1}`}
-                className="project-image"
+              <button
+                type="button"
+                className="project-image-trigger"
                 onClick={openModal}
-                loading="lazy"
-                draggable="false"
-              />
+                aria-label={`Open ${project.title} screenshot ${currentImage + 1} fullscreen`}
+              >
+                <img
+                  src={images[currentImage]}
+                  alt={`${project.title} screenshot ${currentImage + 1}`}
+                  className="project-image"
+                  loading="lazy"
+                  draggable="false"
+                />
+              </button>
 
               {hasMultipleImages && (
                 <>
@@ -436,19 +444,11 @@ const projects = [
       fivesamath11,
     ],
 
-    live:
-      "https://fivesamath-api-frontend.sudeesharavisara2.workers.dev/",
-
     githubRepos: [
       {
         name: "Backend",
         url:
           "https://github.com/chamodyha123/FiveSamath.API.git",
-      },
-      {
-        name: "Frontend",
-        url:
-          "https://github.com/sudeesharavisara2-sys/FiveSamath.API-Frontend.git",
       },
     ],
 
@@ -646,28 +646,36 @@ function Projects() {
       className="projects"
     >
 
-      <div className="projects-header">
-<h2>
-          My Projects
-        </h2>
+      <div className="projects-shell">
+        <FadeIn>
+          <div className="projects-header">
+            <p className="projects-eyebrow"><span aria-hidden="true" />Selected Work</p>
+            <h2>
+              Ideas engineered into <span>real experiences.</span>
+            </h2>
 
         <p className="projects-subtitle">
           A collection of software engineering, full-stack
           development, AI, database and UI/UX projects.
         </p>
 
-      </div>
+          </div>
+        </FadeIn>
 
 
       <div className="projects-container">
 
         {projects.map((project, index) => (
-          <ProjectCard
+          <FadeIn
             key={`${project.title}-${index}`}
-            project={project}
-          />
+            from={index % 2 === 0 ? "left" : "right"}
+            delay={Math.min(index * 50, 350)}
+          >
+            <ProjectCard project={project} index={index} />
+          </FadeIn>
         ))}
 
+      </div>
       </div>
 
     </section>

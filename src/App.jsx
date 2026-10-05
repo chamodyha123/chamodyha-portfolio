@@ -1,5 +1,3 @@
-import { useState } from "react"
-
 import Navbar from "./components/Navbar"
 import Hero from "./components/Hero"
 import About from "./components/About"
@@ -9,32 +7,42 @@ import Certifications from "./components/Certifications"
 import Projects from "./components/Projects"
 import Contact from "./components/Contact"
 import Footer from "./components/Footer"
+import InteractiveBackground from "./components/InteractiveBackground"
+import FadeIn from "./components/FadeIn"
 
 function App() {
-
-  const [darkMode, setDarkMode] = useState(true)
-
-  const toggleTheme = () => {
-    setDarkMode(!darkMode)
-  }
-
   return (
-    <div className={darkMode ? "dark-theme" : "light-theme"}>
+    <div className="dark-theme">
+      <InteractiveBackground />
 
-      <Navbar
-        toggleTheme={toggleTheme}
-        darkMode={darkMode}
-      />
+      <div className="portfolio-content">
 
-      <Hero />
-      <About />
-      <Skills />
-      <Education />
-     <Certifications />
-      <Projects />
-      <Contact />
+      <Navbar />
+
+      <FadeIn delay={0}>
+        <Hero />
+      </FadeIn>
+      <FadeIn from="left" delay={50}>
+        <About />
+      </FadeIn>
+      <FadeIn delay={75}>
+        <Skills />
+      </FadeIn>
+      <FadeIn from="right" delay={50}>
+        <Education />
+      </FadeIn>
+      <FadeIn delay={75}>
+        <Certifications />
+      </FadeIn>
+      <FadeIn from="left" delay={50}>
+        <Projects />
+      </FadeIn>
+      <FadeIn from="right" delay={50}>
+        <Contact />
+      </FadeIn>
       <Footer />
 
+      </div>
     </div>
   )
 }
