@@ -4535,6 +4535,14 @@ section {
   object-fit: cover;
 }
 
+.projects .project-image--contain {
+  object-fit: contain;
+}
+
+.project-modal-image.project-image--contain {
+  object-fit: contain;
+}
+
 .projects .project-image-container::after {
   position: absolute;
   inset: 0;
