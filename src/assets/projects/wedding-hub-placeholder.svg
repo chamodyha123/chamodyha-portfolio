@@ -1,0 +1,10 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs><linearGradient id="a" x1="180" y1="80" x2="1420" y2="820" gradientUnits="userSpaceOnUse"><stop stop-color="#291D3C"/><stop offset="1" stop-color="#141E38"/></linearGradient><linearGradient id="b" x1="400" y1="250" x2="1160" y2="690" gradientUnits="userSpaceOnUse"><stop stop-color="#C78B7C"/><stop offset="1" stop-color="#8668B6"/></linearGradient></defs>
+  <rect width="1600" height="900" rx="38" fill="url(#a)"/>
+  <circle cx="290" cy="200" r="210" fill="#C78B7C" fill-opacity=".13"/><circle cx="1340" cy="690" r="270" fill="#8E70C0" fill-opacity=".12"/>
+  <rect x="260" y="170" width="1080" height="560" rx="28" fill="#101827" stroke="#B899DC" stroke-opacity=".38" stroke-width="2"/>
+  <rect x="260" y="170" width="1080" height="74" rx="28" fill="#211B34"/><circle cx="310" cy="207" r="9" fill="#C78B7C"/><circle cx="340" cy="207" r="9" fill="#D7B674"/><circle cx="370" cy="207" r="9" fill="#8CBF9C"/>
+  <rect x="316" y="300" width="400" height="350" rx="20" fill="url(#b)"/><path d="M516 380c-55 0-100 44-100 99 0 77 100 141 100 141s100-64 100-141c0-55-45-99-100-99Zm0 145a46 46 0 1 1 0-92 46 46 0 0 1 0 92Z" fill="white" fill-opacity=".92"/>
+  <rect x="770" y="315" width="420" height="28" rx="14" fill="#F7EEF0" fill-opacity=".88"/><rect x="770" y="368" width="335" height="16" rx="8" fill="#E4D7EA" fill-opacity=".53"/><rect x="770" y="406" width="365" height="16" rx="8" fill="#E4D7EA" fill-opacity=".53"/><rect x="770" y="478" width="185" height="52" rx="26" fill="#C78B7C"/><rect x="770" y="558" width="390" height="1" fill="#D9CAE4" fill-opacity=".25"/>
+  <text x="800" y="635" fill="#F7EEF0" font-family="Arial, sans-serif" font-size="28" font-weight="700" text-anchor="middle">WEDDING HUB</text><text x="800" y="675" fill="#CBBEDB" font-family="Arial, sans-serif" font-size="18" text-anchor="middle">Conceptual project cover · interface screenshots coming soon</text>
+</svg>

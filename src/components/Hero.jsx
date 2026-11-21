@@ -3,10 +3,9 @@ import FadeIn from "./FadeIn"
 import useTypewriter from "../hooks/useTypewriter"
 
 const roles = [
+  "Aspiring Full Stack Software Engineer",
+  "UI/UX Engineer",
   "Software Engineering Undergraduate",
-  "Full-Stack Developer",
-  "UI/UX Designer",
-  "Graphic Designer",
 ]
 
 function Hero() {
@@ -25,7 +24,7 @@ function Hero() {
       <div className="hero-inner">
         <div className="hero-content">
           <FadeIn delay={80}>
-            <p className="hero-badge">Software Engineering Undergraduate</p>
+            <p className="hero-badge">Aspiring Full Stack Software & UI/UX Engineer</p>
           </FadeIn>
 
           <FadeIn delay={160}>
@@ -52,8 +51,8 @@ function Hero() {
 
           <FadeIn delay={360}>
             <p className="hero-description">
-              I build practical, user-focused digital experiences by combining
-              software engineering with thoughtful UI/UX and graphic design.
+              I build secure, scalable and user-friendly digital solutions by combining
+              modern software engineering with intuitive UI/UX.
             </p>
           </FadeIn>
 

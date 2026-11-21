@@ -17,52 +17,52 @@ const skillCategories = [
   {
     title: "Frontend Development",
     icon: FaCode,
-    skills: ["HTML5", "CSS3", "JavaScript", "TypeScript", "React", "Next.js", "Bootstrap", "Tailwind CSS"],
+    skills: ["HTML5", "CSS3", "JavaScript", "TypeScript", "React.js", "Next.js", "Vite", "Tailwind CSS", "Bootstrap", "React Router", "Axios", "WordPress", "Responsive Web Development"],
   },
   {
     title: "Backend Development",
     icon: FaServer,
-    skills: ["Node.js", "Express.js", "C#", "ASP.NET Core", "PHP", "Laravel"],
+    skills: ["Java", "C#", "Python", "PHP", "Node.js", "Express.js", "ASP.NET Core", "Spring Boot", "Laravel", "RESTful API Development"],
   },
   {
     title: "Mobile Development",
     icon: FaMobileAlt,
-    skills: ["Flutter", "Dart"],
+    skills: ["Flutter", "Dart", "Firebase Authentication", "Cloud Firestore", "Provider State Management", "Hive", "Mobile UI/UX Development"],
   },
   {
     title: "Databases",
     icon: FaDatabase,
-    skills: ["SQL", "PostgreSQL", "MySQL", "SQL Server"],
+    skills: ["SQL", "PostgreSQL", "Microsoft SQL Server", "MySQL", "Cloud Firestore", "Relational Database Design", "Database Migrations", "Flyway"],
   },
   {
     title: "API & Security",
     icon: FaShieldAlt,
-    skills: ["REST APIs", "JWT Authentication", "Laravel Sanctum", "Swagger / OpenAPI", "Postman"],
+    skills: ["REST APIs", "JWT Authentication", "OAuth", "Role-Based Access Control", "API Security", "Laravel Sanctum", "Swagger / OpenAPI", "Postman", "Thunder Client"],
   },
   {
     title: "ORM & Data Access",
     icon: SiPrisma,
-    skills: ["Entity Framework Core", "Eloquent ORM", "Prisma"],
+    skills: ["Entity Framework Core", "Spring Data JPA", "JPA / Hibernate", "Prisma ORM", "Eloquent ORM"],
   },
   {
     title: "Real-Time & Cloud",
     icon: FaCloud,
-    skills: ["Socket.IO", "Firebase", "Firebase Cloud Messaging", "Azure", "AWS", "Vercel", "Docker"],
+    skills: ["Firebase", "GitHub Actions", "Vercel", "Microsoft Azure", "Cloudflare", "Docker"],
   },
   {
     title: "Programming & Data",
     icon: FaLayerGroup,
-    skills: ["Python", "Java", "Pandas", "Scikit-learn"],
+    skills: ["Object-Oriented Programming", "MVC Architecture", "Repository and Service Patterns", "Software Architecture", "Agile Development", "Software Testing", "CI/CD Fundamentals"],
   },
   {
     title: "UI/UX & Design",
     icon: FaPalette,
-    skills: ["UI/UX Design", "Figma", "Graphic Design", "Adobe Photoshop", "Adobe Illustrator"],
+    skills: ["Figma", "Wireframing", "High-Fidelity Prototyping", "Human-Computer Interaction", "Usability Evaluation", "Interaction Design", "Responsive UI Design", "Adobe Photoshop", "Adobe Illustrator", "Adobe InDesign"],
   },
   {
     title: "Development Tools",
     icon: FaTools,
-    skills: ["Git", "GitHub", "VS Code", "Visual Studio", "IntelliJ IDEA", "PyCharm"],
+    skills: ["Git", "GitHub", "Visual Studio Code", "Visual Studio", "IntelliJ IDEA", "Maven"],
   },
   {
     title: "Other Technologies",

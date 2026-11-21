@@ -9,14 +9,13 @@ import FadeIn from "./FadeIn"
 const highlights = [
   {
     index: "01",
-    value: "3rd Year",
+    value: "2024–2028",
     label: "Software Engineering Undergraduate",
     icon: FaGraduationCap,
   },
   {
     index: "02",
-    value: "8",
-    suffix: "+",
+    value: "10",
     label: "Portfolio Projects",
     icon: FaCode,
   },
@@ -51,28 +50,25 @@ function About() {
             <div className="about-copy">
               <FadeIn from="left" delay={100}>
                 <p>
-                  I am a Software Engineering undergraduate at NSBM Green University,
-                  currently in my 3rd Year, 1st Semester. I am a passionate graphic
-                  designer and software developer who enjoys building modern web
-                  applications and creative digital experiences.
+                  I am a passionate Software Engineering undergraduate at NSBM Green
+                  University with hands-on experience in full-stack development, mobile
+                  application development and UI/UX design.
                 </p>
               </FadeIn>
 
               <FadeIn from="left" delay={170}>
                 <p>
-                  I am interested in frontend development, UI/UX design, React,
-                  Next.js, backend development, database management, and modern
-                  cloud technologies. I enjoy turning ideas into practical,
-                  user-friendly software solutions.
+                  My technical experience includes React, Next.js, ASP.NET Core, Spring
+                  Boot, Node.js, Express.js, Laravel, Flutter, Firebase and relational
+                  database technologies.
                 </p>
               </FadeIn>
 
               <FadeIn from="left" delay={240}>
                 <p>
-                  Through personal and collaborative full-stack applications, I have
-                  gained hands-on experience with REST APIs, JWT authentication,
-                  PostgreSQL, SQL Server, Git/GitHub, Vercel, and Azure while
-                  continuously learning and solving technical problems.
+                  I am continuously improving in software architecture, cloud deployment,
+                  API development, authentication, database management and modern frontend
+                  technologies while seeking Software Engineering internship opportunities.
                 </p>
               </FadeIn>
             </div>

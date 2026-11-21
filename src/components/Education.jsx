@@ -10,7 +10,7 @@ const educationItems = [
     title: "BSc (Hons) in Software Engineering",
     description: "Currently pursuing a Bachelor of Science (Honours) degree in Software Engineering at NSBM Green University. Developing knowledge and practical experience in software development, web technologies, databases, software engineering, and modern application development.",
     badge: "Currently Studying",
-    detail: "Expected Graduation: 2028",
+    detail: "2024–2028",
   },
   {
     index: "02",
