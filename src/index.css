@@ -4503,7 +4503,12 @@ section {
   margin: 0;
 }
 
+.projects .projects-container > .fade-in {
+  display: flex;
+}
+
 .projects .project-card {
+  flex: 1 1 auto;
   height: 100%;
   overflow: hidden;
   background: linear-gradient(145deg, rgba(10, 20, 38, 0.82), rgba(5, 9, 20, 0.62));
@@ -4591,11 +4596,11 @@ section {
 }
 
 .projects .project-content {
-  padding: 1.25rem;
+  padding: 24px;
 }
 
 .projects .project-category {
-  margin: 0 0 0.55rem;
+  margin: 0 0 12px;
   color: var(--blue-light);
   font-size: 0.72rem;
   font-weight: 700;
@@ -4604,23 +4609,28 @@ section {
 }
 
 .projects .project-title {
-  margin: 0;
+  margin: 0 0 6px;
   color: var(--text-primary);
   font-size: clamp(1.3rem, 2.2vw, 1.6rem);
   letter-spacing: -0.035em;
   line-height: 1.2;
 }
 
+.projects .project-subtitle {
+  margin: 0 0 16px;
+  line-height: 1.45;
+}
+
 .projects .project-description {
-  margin: 0.85rem 0 0;
+  margin: 0;
   color: var(--text-secondary);
   font-size: 0.88rem;
-  line-height: 1.72;
+  line-height: 1.6;
 }
 
 .projects .project-technologies {
-  gap: 0.42rem;
-  margin: 1rem 0 1.2rem;
+  gap: 8px;
+  margin: 18px 0 24px;
 }
 
 .projects .project-tech {
@@ -4638,7 +4648,8 @@ section {
 }
 
 .projects .project-links {
-  gap: 0.55rem;
+  gap: 8px;
+  margin-top: auto;
 }
 
 .projects .project-link {
