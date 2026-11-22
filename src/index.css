@@ -4525,8 +4525,8 @@ section {
 }
 
 .projects .project-image-container {
-  height: auto;
-  aspect-ratio: 1.58;
+  height: 340px;
+  aspect-ratio: auto;
   background: #07101e;
   border-bottom-color: var(--border);
 }
@@ -4536,11 +4536,15 @@ section {
 }
 
 .projects .project-image--contain {
+  box-sizing: border-box;
   object-fit: contain;
+  padding: 18px;
 }
 
 .project-modal-image.project-image--contain {
+  box-sizing: border-box;
   object-fit: contain;
+  padding: min(3vw, 32px);
 }
 
 .projects .project-image-container::after {
@@ -4727,13 +4731,20 @@ section {
   background: var(--blue-light);
 }
 
+@media (max-width: 1024px) {
+  .projects .project-image-container {
+    height: 300px;
+  }
+}
+
 @media (max-width: 760px) {
   .projects .projects-container {
     grid-template-columns: 1fr;
   }
 
   .projects .project-image-container {
-    aspect-ratio: 1.55;
+    height: 280px;
+    aspect-ratio: auto;
   }
 }
 
@@ -4752,6 +4763,14 @@ section {
 
   .projects .project-content {
     padding: 1rem;
+  }
+
+  .projects .project-image-container {
+    height: 240px;
+  }
+
+  .projects .project-image--contain {
+    padding: 12px;
   }
 
   .projects .project-links {
